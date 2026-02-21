@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, Hand, Code2, Layers } from "lucide-react";
+import { ArrowRight, Hand, Code2, Layers, Terminal } from "lucide-react";
+import { CodeBlock } from "@/components/ui/CodeBlock";
 
 export default function Home() {
   return (
@@ -62,6 +63,61 @@ export default function Home() {
             </div>
             <h3 className="font-semibold text-lg mb-2">Accessible Motion</h3>
             <p className="text-neutral-400 text-sm">Built-in framer-motion physics automatically smooth out webcam jitter for a native spatial computing feel.</p>
+          </div>
+        </div>
+
+        {/* Installation Guide */}
+        <div className="w-full max-w-3xl mt-32 text-left mb-12">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-10 h-10 rounded-full bg-orange-500/20 flex items-center justify-center border border-orange-500/30 shadow-[0_0_20px_-5px_rgba(249,115,22,0.4)]">
+              <Terminal className="w-5 h-5 text-orange-400" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">Quick Start</h2>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="p-6 md:p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-1000" />
+              <div className="flex items-center gap-4 mb-4 relative z-10">
+                <div className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-sm font-bold text-white shadow-inner">1</div>
+                <h3 className="font-semibold text-xl text-white">Initialize Kine UI</h3>
+              </div>
+              <p className="text-neutral-400 text-sm mb-6 pl-12 relative z-10">
+                Scaffold your local components directory and automatically install the required computer vision dependencies (<code className="text-orange-300 bg-orange-500/10 rounded px-1 py-0.5">@mediapipe/tasks-vision</code> and <code className="text-blue-300 bg-blue-500/10 rounded px-1 py-0.5">framer-motion</code>).
+              </p>
+              <div className="pl-12 relative z-10">
+                <CodeBlock code="npx @opendevsociety/kine-ui init" />
+              </div>
+            </div>
+
+            <div className="p-6 md:p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-1000" />
+              <div className="flex items-center gap-4 mb-4 relative z-10">
+                <div className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-sm font-bold text-white shadow-inner">2</div>
+                <h3 className="font-semibold text-xl text-white">Add Tracking Engine</h3>
+              </div>
+              <p className="text-neutral-400 text-sm mb-6 pl-12 relative z-10">
+                Install the global provider. Wrap your root Next.js <code className="text-emerald-300 bg-emerald-500/10 rounded px-1 py-0.5">layout.tsx</code> inside this provider to automatically boot up the zero-re-render WASM hand tracking process.
+              </p>
+              <div className="pl-12 relative z-10">
+                <CodeBlock code="npx @opendevsociety/kine-ui add kine-provider" />
+              </div>
+            </div>
+
+            <div className="p-6 md:p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none group-hover:bg-blue-500/10 transition-colors duration-1000" />
+              <div className="flex items-center gap-4 mb-4 relative z-10">
+                <div className="w-8 h-8 rounded-full border border-white/20 bg-white/10 flex items-center justify-center text-sm font-bold text-white shadow-inner">3</div>
+                <h3 className="font-semibold text-xl text-white">Install Spatial Elements</h3>
+              </div>
+              <p className="text-neutral-400 text-sm mb-6 pl-12 relative z-10">
+                Copy physics-based UI elements directly into your own codebase, giving you absolute control over styling variables and gesture sensitivity thresholds.
+              </p>
+              <div className="pl-12 space-y-3 relative z-10">
+                <CodeBlock code="npx @opendevsociety/kine-ui add air-cursor" />
+                <CodeBlock code="npx @opendevsociety/kine-ui add swipe-area" />
+              </div>
+            </div>
           </div>
         </div>
       </main>

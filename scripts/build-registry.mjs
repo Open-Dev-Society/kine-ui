@@ -43,11 +43,15 @@ async function buildRegistry() {
             // We'll leave imports as-is assuming they use standard paths or the CLI resolves it.
             // If they are local specific like `./KineProvider`, standard shadcn CLI replaces them based on registry dependencies.
 
+            // Extract whether this is a core file or a gesture file
+            // path.dirname(fileDoc.path) gets us 'src/registry/core' or 'src/registry/gestures'
+            const folderName = path.basename(path.dirname(fileDoc.path));
+
             filesWithContent.push({
                 path: path.basename(fileDoc.path), // Just the filename for the payload
                 content,
                 type: fileDoc.type,
-                target: `components/kine/${path.basename(fileDoc.path)}` // Suggest placing it in a specific folder
+                target: `components/kine/${folderName}/${path.basename(fileDoc.path)}` // Preserve 'core' or 'gestures' nesting
             });
         }
 
