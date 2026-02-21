@@ -1,0 +1,19 @@
+{
+  "name": "swipe-area",
+  "type": "registry:component",
+  "dependencies": [
+    "framer-motion",
+    "@mediapipe/tasks-vision"
+  ],
+  "registryDependencies": [
+    "kine-provider"
+  ],
+  "files": [
+    {
+      "path": "SwipeArea.tsx",
+      "content": "\"use client\";\r\n\r\nimport React, { useEffect, useRef } from \"react\";\r\nimport { useKine } from \"./KineProvider\";\r\n\r\ninterface SwipeAreaProps {\r\n    children: React.ReactNode;\r\n    onSwipeLeft?: () => void;\r\n    onSwipeRight?: () => void;\r\n    velocityThreshold?: number;\r\n    className?: string;\r\n}\r\n\r\nexport const SwipeArea: React.FC<SwipeAreaProps> = ({\r\n    children,\r\n    onSwipeLeft,\r\n    onSwipeRight,\r\n    velocityThreshold = 0.15, // Minimum change in normalized X over 5 frames\r\n    className = \"\",\r\n}) => {\r\n    const { landmarksRef, isWebcamActive } = useKine();\r\n    const historyRef = useRef<number[]>([]);\r\n    const cooldownRef = useRef<boolean>(false);\r\n\r\n    const onSwipeLeftRef = useRef(onSwipeLeft);\r\n    const onSwipeRightRef = useRef(onSwipeRight);\r\n\r\n    useEffect(() => {\r\n        onSwipeLeftRef.current = onSwipeLeft;\r\n        onSwipeRightRef.current = onSwipeRight;\r\n    }, [onSwipeLeft, onSwipeRight]);\r\n\r\n    useEffect(() => {\r\n        if (!isWebcamActive) return;\r\n\r\n        let animationFrameId: number;\r\n\r\n        const loop = () => {\r\n            if (cooldownRef.current) {\r\n                animationFrameId = requestAnimationFrame(loop);\r\n                return;\r\n            }\r\n\r\n            const landmarks = landmarksRef.current;\r\n            if (landmarks && landmarks.length > 0) {\r\n                // Track palm base (landmark 0) to evaluate aggregate hand movement\r\n                const palm = landmarks[0][0];\r\n                const currentX = palm.x;\r\n\r\n                const history = historyRef.current;\r\n                history.push(currentX);\r\n\r\n                // Keep only the last 15 frames for velocity calculation\r\n                // (At 60fps, 15 frames is ~250ms of movement)\r\n                if (history.length > 15) {\r\n                    history.shift();\r\n                }\r\n\r\n                if (history.length === 15) {\r\n                    const oldestX = history[0];\r\n                    const newestX = history[14];\r\n                    const deltaX = newestX - oldestX;\r\n\r\n                    if (Math.abs(deltaX) > velocityThreshold) {\r\n                        // Warning: The MediaPipe webcam feed is horizontally mirrored. \r\n                        // A physical left swipe results in a positive delta in normalized coordinates.\r\n                        if (deltaX > 0) {\r\n                            onSwipeLeftRef.current?.();\r\n                        } else {\r\n                            onSwipeRightRef.current?.();\r\n                        }\r\n\r\n                        // Trigger cooldown to prevent multiple swipes from a single motion\r\n                        cooldownRef.current = true;\r\n                        historyRef.current = []; // Clear history\r\n                        setTimeout(() => {\r\n                            cooldownRef.current = false;\r\n                        }, 800); // 800ms threshold\r\n                    }\r\n                }\r\n            }\r\n            animationFrameId = requestAnimationFrame(loop);\r\n        };\r\n\r\n        animationFrameId = requestAnimationFrame(loop);\r\n\r\n        return () => {\r\n            cancelAnimationFrame(animationFrameId);\r\n        };\r\n    }, [isWebcamActive, landmarksRef, velocityThreshold]);\r\n\r\n    return <div className={`relative w-full h-full ${className}`}>{children}</div>;\r\n};\r\n",
+      "type": "registry:component",
+      "target": "components/kine/SwipeArea.tsx"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "name": "kine-ui",
+  "version": "1.0.0",
+  "description": "Spatial computing component registry for React.",
+  "main": "dist/index.js",
+  "bin": {
+    "kine-ui": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs",
+    "dev": "tsup src/index.ts --format cjs --watch"
+  },
+  "keywords": [
+    "react",
+    "spatial",
+    "components",
+    "shadcn"
+  ],
+  "author": "Open Dev Society",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0",
+    "node-fetch": "^2.7.0",
+    "ora": "^5.4.1",
+    "prompts": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.16",
+    "@types/node-fetch": "^2.6.11",
+    "@types/prompts": "^2.4.9",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
+}

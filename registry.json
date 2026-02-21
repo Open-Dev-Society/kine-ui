@@ -1,0 +1,58 @@
+{
+    "$schema": "https://ui.shadcn.com/schema/registry.json",
+    "name": "kine-ui",
+    "homepage": "https://kine-ui.vercel.app",
+    "items": [
+        {
+            "name": "air-cursor",
+            "type": "registry:component",
+            "dependencies": [
+                "framer-motion",
+                "@mediapipe/tasks-vision"
+            ],
+            "registryDependencies": [
+                "kine-provider"
+            ],
+            "files": [
+                {
+                    "path": "src/registry/gestures/AirCursor.tsx",
+                    "type": "registry:component"
+                }
+            ]
+        },
+        {
+            "name": "swipe-area",
+            "type": "registry:component",
+            "dependencies": [
+                "framer-motion",
+                "@mediapipe/tasks-vision"
+            ],
+            "registryDependencies": [
+                "kine-provider"
+            ],
+            "files": [
+                {
+                    "path": "src/registry/gestures/SwipeArea.tsx",
+                    "type": "registry:component"
+                }
+            ]
+        },
+        {
+            "name": "kine-provider",
+            "type": "registry:component",
+            "dependencies": [
+                "@mediapipe/tasks-vision"
+            ],
+            "files": [
+                {
+                    "path": "src/registry/gestures/KineProvider.tsx",
+                    "type": "registry:component"
+                },
+                {
+                    "path": "src/registry/core/kine-engine.ts",
+                    "type": "registry:component"
+                }
+            ]
+        }
+    ]
+}
