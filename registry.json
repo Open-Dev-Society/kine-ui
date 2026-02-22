@@ -53,6 +53,36 @@
                     "type": "registry:component"
                 }
             ]
+        },
+        {
+            "name": "air-scroll",
+            "type": "registry:component",
+            "dependencies": [],
+            "registryDependencies": [
+                "kine-provider"
+            ],
+            "files": [
+                {
+                    "path": "src/registry/gestures/AirScroll.tsx",
+                    "type": "registry:component"
+                }
+            ]
+        },
+        {
+            "name": "pinch-to-zoom",
+            "type": "registry:component",
+            "dependencies": [
+                "framer-motion"
+            ],
+            "registryDependencies": [
+                "kine-provider"
+            ],
+            "files": [
+                {
+                    "path": "src/registry/gestures/PinchToZoom.tsx",
+                    "type": "registry:component"
+                }
+            ]
         }
     ]
 }
