@@ -1,6 +1,6 @@
 {
   "name": "@opendevsociety/kine-ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Spatial computing component registry for React.",
   "main": "dist/index.js",
   "bin": {

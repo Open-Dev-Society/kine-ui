@@ -30,14 +30,28 @@ export default function Home() {
             className="flex items-center gap-2 px-6 py-3 bg-white text-black font-medium rounded-full hover:scale-105 active:scale-95 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
           >
             <Hand className="w-4 h-4" />
-            Try Air Cursor
+            Air Cursor
+          </Link>
+          <Link
+            href="/docs/pinch-to-zoom"
+            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-full hover:bg-white/10 active:scale-95 transition-all"
+          >
+            <ArrowRight className="w-4 h-4" />
+            Pinch to Zoom
           </Link>
           <Link
             href="/docs/swipe-area"
             className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-full hover:bg-white/10 active:scale-95 transition-all"
           >
             <ArrowRight className="w-4 h-4" />
-            Try Swipe Area
+            Swipe Area
+          </Link>
+          <Link
+            href="/docs/air-scroll"
+            className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 text-white font-medium rounded-full hover:bg-white/10 active:scale-95 transition-all"
+          >
+            <ArrowRight className="w-4 h-4" />
+            Air Scroll
           </Link>
         </div>
 

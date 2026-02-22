@@ -92,9 +92,8 @@ export function PinchToZoom({
                         setIsZooming(false);
                         initialDistanceRef.current = null;
 
-                        // Snap back to 1.0 scale if they aren't pinching anymore
-                        scale.set(1);
-                        currentScaleRef.current = 1;
+                        // We do NOT snap back to 1.0 here, allowing the user to "ratchet"
+                        // their zoom by letting go, moving hands, and grabbing again.
                     }
                 }
             } else {
@@ -103,8 +102,6 @@ export function PinchToZoom({
                     isZoomingRef.current = false;
                     setIsZooming(false);
                     initialDistanceRef.current = null;
-                    scale.set(1);
-                    currentScaleRef.current = 1;
                 }
             }
 

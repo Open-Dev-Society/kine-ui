@@ -1,12 +1,27 @@
-import { AirScroll } from "@/registry/gestures/AirScroll";
-import { Copy } from "lucide-react";
+"use client";
 
-export default function AirScrollDemo() {
+import { AirScroll } from "@/registry/gestures/AirScroll";
+import { KineProvider } from "@/registry/gestures/KineProvider";
+import { Copy, AlertTriangle } from "lucide-react";
+import { useKine } from "@/registry/gestures/KineProvider";
+
+function AirScrollContent() {
+    const { webcamError } = useKine();
+
+    if (webcamError) {
+        return (
+            <div className="flex flex-col items-center justify-center p-8 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-center gap-4 max-w-3xl mx-auto mt-32">
+                <AlertTriangle className="w-8 h-8" />
+                <p className="font-medium">{webcamError}</p>
+            </div>
+        );
+    }
+
     return (
-        <div className="min-h-screen bg-neutral-950 text-white pb-32">
+        <>
             <AirScroll scrollSpeed={6} threshold={0.015} />
 
-            <main className="max-w-3xl mx-auto px-6 pt-32">
+            <main className="max-w-3xl mx-auto px-6 pt-32 relative z-50">
                 <h1 className="text-4xl font-bold mb-4">Air Scroll</h1>
                 <p className="text-neutral-400 text-lg mb-12">
                     Control your continuous reading experience without touching the mouse.
@@ -90,6 +105,16 @@ export default function ArticleLayout() {
                     </div>
                 </div>
             </main>
-        </div>
+        </>
+    );
+}
+
+export default function AirScrollDemo() {
+    return (
+        <KineProvider showDebugVideo={true}>
+            <div className="min-h-screen bg-neutral-950 text-white pb-32">
+                <AirScrollContent />
+            </div>
+        </KineProvider>
     );
 }
