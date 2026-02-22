@@ -2,8 +2,11 @@
 
 ## Project Overview & Vision
 **Name**: Kine UI
+
 **Organization**: Open Dev Society
+
 **Concept**: A headless, copy-pasteable component registry for web-based hand gesture controls.
+
 **Objective**: Standardize computer vision for frontend developers. Kine UI provides raw, editable React components powered by a highly optimized background vision engine, utilizing the shadcn/ui distribution model (delivering source code, not compiled packages).
 
 ## Target Audience & Use Cases
