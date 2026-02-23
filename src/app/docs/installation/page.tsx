@@ -2,9 +2,28 @@ import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { Terminal, Lightbulb } from "lucide-react";
 
+const title = "Installation";
+const description = "Set up Kine UI in your Next.js project. Install the CLI, add the KineProvider, and start building gesture-driven interfaces in under 2 minutes.";
+const url = "https://kine-ui.vercel.app/docs/installation";
+
 export const metadata: Metadata = {
-    title: "Installation",
-    description: "Set up Kine UI in your Next.js project. Install the CLI, add the KineProvider, and start building gesture-driven interfaces in under 2 minutes.",
+    title,
+    description,
+    keywords: ["kine ui installation", "install hand tracking", "mediapipe react setup", "gesture component setup", "kine-ui cli", "spatial computing setup", "nextjs hand tracking"],
+    openGraph: {
+        title: `${title} | Kine UI`,
+        description,
+        url,
+        type: "article",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `${title} | Kine UI`,
+        description,
+    },
+    alternates: {
+        canonical: url,
+    },
 };
 
 export default function InstallationPage() {

@@ -1,17 +1,36 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-import { Sidebar } from "@/components/ui/Sidebar";
+import { DocsLayoutClient } from "@/components/ui/DocsLayoutClient";
 
 export default function DocsLayout({ children }: { children: React.ReactNode }) {
-    const pathname = usePathname();
-
     return (
-        <div className="flex flex-1 w-full max-w-7xl mx-auto md:flex-row">
-            <Sidebar />
-            <main className="flex-1 min-w-0 px-6 py-12 md:py-16 md:px-12 w-full" key={pathname}>
-                {children}
-            </main>
-        </div>
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "TechArticle",
+                        headline: "Kine UI Documentation",
+                        description:
+                            "Technical documentation for Kine UI — open-source hand gesture components for React powered by MediaPipe WebAssembly.",
+                        url: "https://kine-ui.vercel.app/docs",
+                        author: {
+                            "@type": "Organization",
+                            name: "Open Dev Society",
+                            url: "https://github.com/open-dev-society",
+                        },
+                        publisher: {
+                            "@type": "Organization",
+                            name: "Open Dev Society",
+                        },
+                        about: {
+                            "@type": "SoftwareApplication",
+                            name: "Kine UI",
+                            applicationCategory: "DeveloperApplication",
+                        },
+                    }),
+                }}
+            />
+            <DocsLayoutClient>{children}</DocsLayoutClient>
+        </>
     );
 }

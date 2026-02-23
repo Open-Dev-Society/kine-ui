@@ -1,9 +1,28 @@
 import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 
+const title = "Architecture";
+const description = "How Kine UI works under the hood — the zero-server pipeline from webcam to MediaPipe WASM to hand landmarks to React components, all in under 16ms.";
+const url = "https://kine-ui.vercel.app/docs/architecture";
+
 export const metadata: Metadata = {
-    title: "Architecture",
-    description: "How Kine UI works under the hood — the zero-server pipeline from webcam to MediaPipe WASM to hand landmarks to React components, all in under 16ms.",
+    title,
+    description,
+    keywords: ["kine ui architecture", "mediapipe pipeline", "hand tracking architecture", "webassembly hand tracking", "react gesture architecture", "landmark detection pipeline"],
+    openGraph: {
+        title: `${title} | Kine UI`,
+        description,
+        url,
+        type: "article",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `${title} | Kine UI`,
+        description,
+    },
+    alternates: {
+        canonical: url,
+    },
 };
 
 export default function ArchitecturePage() {
