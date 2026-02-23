@@ -3,14 +3,14 @@
 import React, { useState } from "react";
 import { KineProvider, useKine } from "@/registry/gestures/KineProvider";
 import { SwipeArea } from "@/registry/gestures/SwipeArea";
-import Link from "next/link";
-import { ArrowLeft, ChevronLeft, ChevronRight, AlertTriangle } from "lucide-react";
+import { ChevronLeft, ChevronRight, AlertTriangle, Play } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { CodeBlock } from "@/components/ui/CodeBlock";
 
 const images = [
-    "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&q=80&w=800&h=500",
-    "https://images.unsplash.com/photo-1682687982501-1e58f813fc5b?auto=format&fit=crop&q=80&w=800&h=500",
-    "https://images.unsplash.com/photo-1682687221038-404670f09439?auto=format&fit=crop&q=80&w=800&h=500",
+    "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800&h=500",
+    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=800&h=500",
+    "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=800&h=500",
 ];
 
 const SwipeAreaDemoContent = () => {
@@ -80,26 +80,80 @@ const SwipeAreaDemoContent = () => {
     );
 };
 
-export default function SwipeAreaDemo() {
+export default function SwipeAreaPage() {
+    const [isPreviewActive, setIsPreviewActive] = useState(false);
+
     return (
-        <div className="min-h-screen bg-neutral-950 text-white p-8 overflow-hidden">
-            <Link href="/" className="relative z-50 inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors mb-8">
-                <ArrowLeft className="w-4 h-4" />
-                Back to Home
-            </Link>
+        <div className="max-w-4xl mx-auto space-y-12">
 
-            <div className="max-w-4xl mx-auto space-y-8">
-                <div className="space-y-2 relative z-50">
-                    <h1 className="text-3xl font-bold">Swipe Area</h1>
-                    <p className="text-neutral-400">Detects high-velocity horizontal hand motion. Try swiping your hand left or right in front of the camera to cycle the carousel.</p>
+            {/* 1. Header Area */}
+            <div className="space-y-4 relative z-50">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-xs font-mono text-neutral-400 mb-2 shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                    REGISTRY: SWIPE_AREA
                 </div>
-
-                <KineProvider showDebugVideo={true}>
-                    <div className="rounded-2xl bg-white/5 border border-white/10 h-[500px] flex items-center justify-center p-4">
-                        <SwipeAreaDemoContent />
-                    </div>
-                </KineProvider>
+                <h1 className="font-mono tracking-widest text-3xl md:text-5xl uppercase text-white">Swipe Area</h1>
+                <p className="text-neutral-400 font-mono text-sm leading-relaxed max-w-2xl">
+                    {`> Detects high-velocity horizontal hand motion. Try swiping your hand left or right in front of the camera to cycle the carousel.`}
+                </p>
             </div>
+
+            {/* 2. Interactive Preview */}
+            <div className="space-y-3">
+                <h2 className="text-xs font-mono tracking-widest uppercase text-neutral-500">Live Preview</h2>
+                <div className="relative rounded-none bg-[#050505] border border-white/10 h-[500px] flex flex-col items-center justify-center p-4 overflow-hidden shadow-2xl">
+                    {!isPreviewActive ? (
+                        <div className="flex flex-col items-center justify-center space-y-6 z-10 w-full h-full">
+                            <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-2">
+                                <Play className="w-6 h-6 text-neutral-400 ml-1" />
+                            </div>
+                            <p className="font-mono text-sm text-neutral-500 max-w-sm text-center leading-relaxed">
+                                {`> The preview requires mounting the webcam tracking engine. Click below to initialize.`}
+                            </p>
+                            <button
+                                onClick={() => setIsPreviewActive(true)}
+                                className="px-6 py-2 bg-white text-black hover:bg-neutral-200 transition-colors font-mono text-xs uppercase tracking-widest font-bold"
+                            >
+                                [ Load Interactive Preview ]
+                            </button>
+                        </div>
+                    ) : (
+                        <KineProvider showDebugVideo={true}>
+                            <SwipeAreaDemoContent />
+                        </KineProvider>
+                    )}
+                </div>
+            </div>
+
+            {/* 3. Installation Command */}
+            <div className="space-y-3">
+                <h2 className="text-xs font-mono tracking-widest uppercase text-neutral-500">Installation</h2>
+                <CodeBlock code="npx @opendevsociety/kine-ui@latest add swipe-area" />
+            </div>
+
+            {/* 4. Example Usage */}
+            <div className="space-y-3 pb-24">
+                <h2 className="text-xs font-mono tracking-widest uppercase text-neutral-500">Example Usage</h2>
+                <pre className="p-4 bg-[#050505] overflow-x-auto text-xs border border-white/10 text-neutral-300 font-mono shadow-xl w-full">
+                    <code>{`import { SwipeArea } from "@/components/kine/gestures/SwipeArea";
+
+export default function GalleryLayout() {
+  return (
+    <div className="w-full h-screen">
+      <SwipeArea 
+        onSwipeLeft={() => nextImage()}
+        onSwipeRight={() => previousImage()}
+        velocityThreshold={0.15}
+        className="w-full h-full"
+      >
+        <ImageCarousel />
+      </SwipeArea>
+    </div>
+  );
+}`}</code>
+                </pre>
+            </div>
+
         </div>
     );
 }

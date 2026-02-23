@@ -9,7 +9,7 @@ interface AirScrollProps {
 }
 
 export function AirScroll({
-    scrollSpeed = 5,
+    scrollSpeed = 1,
     threshold = 0.02
 }: AirScrollProps) {
     const { landmarksRef } = useKine();

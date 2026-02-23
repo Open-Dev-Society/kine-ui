@@ -1,8 +1,10 @@
 "use client";
 
+import React, { useState } from "react";
 import { PinchToZoom } from "@/registry/gestures/PinchToZoom";
 import { KineProvider, useKine } from "@/registry/gestures/KineProvider";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Play } from "lucide-react";
+import { CodeBlock } from "@/components/ui/CodeBlock";
 
 function PinchToZoomContent() {
     const { webcamError } = useKine();
@@ -19,23 +21,9 @@ function PinchToZoomContent() {
     }
 
     return (
-        <div className="min-h-screen bg-neutral-950 text-white flex flex-col items-center justify-start p-6 pt-24 pb-32">
-
-            {/* Header Section */}
-            <div className="text-center w-full max-w-xl mb-12">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-sm text-orange-400 mb-6 backdrop-blur-md">
-                    <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                    Requires Two Hands
-                </div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-6">Pinch To Zoom</h1>
-                <p className="text-neutral-400 text-lg">
-                    Bring both hands into the frame. Pinch your thumb and index fingers together on each hand,
-                    then pull apart or push together to dynamically scale the image below!
-                </p>
-            </div>
-
+        <div className="flex flex-col items-center justify-center w-full h-full p-4">
             {/* Interactive Zoom Area */}
-            <div className="w-full max-w-3xl aspect-[16/10] rounded-3xl border border-white/10 bg-neutral-900 overflow-hidden flex items-center justify-center relative shadow-2xl mb-16">
+            <div className="w-full max-w-3xl aspect-[16/10] border border-white/10 bg-neutral-900 overflow-hidden flex items-center justify-center relative shadow-2xl">
 
                 {/* Background Grid */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
@@ -58,11 +46,65 @@ function PinchToZoomContent() {
                 </PinchToZoom>
 
             </div>
+        </div>
+    );
+}
 
-            {/* Code Snippet Footer */}
-            <div className="w-full max-w-2xl px-6">
-                <p className="text-sm text-neutral-400 mb-3 font-medium">Example Usage</p>
-                <pre className="p-4 rounded-xl bg-black/50 overflow-x-auto text-sm border border-white/10 text-neutral-300 font-mono shadow-xl backdrop-blur-md w-full">
+export default function PinchToZoomPage() {
+    const [isPreviewActive, setIsPreviewActive] = useState(false);
+
+    return (
+        <div className="max-w-4xl mx-auto space-y-12">
+
+            {/* 1. Header Area */}
+            <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-xs font-mono text-neutral-400 mb-2 shadow-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                    REGISTRY: PINCH_TO_ZOOM
+                </div>
+                <h1 className="font-mono tracking-widest text-3xl md:text-5xl uppercase text-white">Pinch To Zoom</h1>
+                <p className="text-neutral-400 font-mono text-sm leading-relaxed max-w-2xl">
+                    {`> Bring both hands into the frame. Pinch your thumb and index fingers together on each hand, then pull apart or push together to dynamically scale the DOM element.`}
+                </p>
+            </div>
+
+            {/* 2. Interactive Preview */}
+            <div className="space-y-3">
+                <h2 className="text-xs font-mono tracking-widest uppercase text-neutral-500">Live Preview</h2>
+                <div className="relative rounded-none bg-[#050505] border border-white/10 min-h-[500px] flex flex-col items-center justify-center overflow-hidden shadow-2xl">
+                    {!isPreviewActive ? (
+                        <div className="flex flex-col items-center justify-center space-y-6 z-10 p-8 w-full h-full bg-[#0a0a0a]">
+                            <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-2">
+                                <Play className="w-6 h-6 text-neutral-400 ml-1" />
+                            </div>
+                            <p className="font-mono text-sm text-neutral-500 max-w-sm text-center leading-relaxed">
+                                {`> The preview requires mounting the webcam tracking engine. Click below to initialize.`}
+                            </p>
+                            <button
+                                onClick={() => setIsPreviewActive(true)}
+                                className="px-6 py-2 bg-white text-black hover:bg-neutral-200 transition-colors font-mono text-xs uppercase tracking-widest font-bold"
+                            >
+                                [ Load Interactive Preview ]
+                            </button>
+                        </div>
+                    ) : (
+                        <KineProvider showDebugVideo={true}>
+                            <PinchToZoomContent />
+                        </KineProvider>
+                    )}
+                </div>
+            </div>
+
+            {/* 3. Installation Command */}
+            <div className="space-y-3">
+                <h2 className="text-xs font-mono tracking-widest uppercase text-neutral-500">Installation</h2>
+                <CodeBlock code="npx @opendevsociety/kine-ui@latest add pinch-to-zoom" />
+            </div>
+
+            {/* 4. Example Usage */}
+            <div className="space-y-3 pb-24">
+                <h2 className="text-xs font-mono tracking-widest uppercase text-neutral-500">Example Usage</h2>
+                <pre className="p-4 bg-[#050505] overflow-x-auto text-xs border border-white/10 text-neutral-300 font-mono shadow-xl w-full">
                     <code>{`import { PinchToZoom } from "@/components/kine/gestures/PinchToZoom";
 
 export default function GalleryImage() {
@@ -79,13 +121,5 @@ export default function GalleryImage() {
             </div>
 
         </div>
-    );
-}
-
-export default function PinchToZoomDemo() {
-    return (
-        <KineProvider showDebugVideo={true}>
-            <PinchToZoomContent />
-        </KineProvider>
     );
 }

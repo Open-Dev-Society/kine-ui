@@ -6,7 +6,7 @@ export class KineEngine {
   private videoElement: HTMLVideoElement | null = null;
   private isInitialized = false;
 
-  private constructor() {}
+  private constructor() { }
 
   public static getInstance(): KineEngine {
     if (!KineEngine.instance) {
@@ -16,8 +16,11 @@ export class KineEngine {
   }
 
   public async initialize(videoElement: HTMLVideoElement) {
-    if (this.isInitialized) return;
+    // Always update the video element reference so navigation works
     this.videoElement = videoElement;
+
+    // Only download and create the HandLandmarker once
+    if (this.isInitialized) return;
 
     // Load Wasm files from unpkg/jsdelivr
     const vision = await FilesetResolver.forVisionTasks(
