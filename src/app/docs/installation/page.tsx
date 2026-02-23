@@ -93,9 +93,9 @@ export default function InstallationPage() {
                 </section>
 
                 {/* Next Steps */}
-                <div className="pt-8 mt-12 border-t border-white/10 flex items-center justify-between">
+                <div className="pt-8 mt-12 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div className="text-neutral-500 text-sm">We recommend starting with the <strong className="text-white">Air Cursor</strong>.</div>
-                    <a href="/docs/air-cursor" className="flex items-center gap-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-colors">
+                    <a href="/docs/air-cursor" className="flex items-center gap-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full transition-colors shrink-0">
                         Read Air Cursor Docs
                         <span className="text-lg leading-none">&rarr;</span>
                     </a>

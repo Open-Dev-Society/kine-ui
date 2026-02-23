@@ -50,10 +50,10 @@ export default async function Home() {
             Beautifully designed hand-gesture components that you can copy and paste into your apps. Accessible. Customizable. Fully Open Source.
           </span>
 
-          <div className="flex w-full items-center justify-center space-x-4 py-4 mt-6">
+          <div className="flex w-full items-center justify-center flex-col sm:flex-row gap-3 sm:gap-4 py-4 mt-6">
             <Link
               href="/docs/installation"
-              className="inline-flex items-center justify-center rounded-sm text-xs font-mono uppercase tracking-widest font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-300 disabled:pointer-events-none disabled:opacity-50 bg-white text-black hover:bg-neutral-200 h-10 px-8 py-2 border border-transparent shadow shadow-white/20"
+              className="inline-flex items-center justify-center rounded-sm text-xs font-mono uppercase tracking-widest font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-300 disabled:pointer-events-none disabled:opacity-50 bg-white text-black hover:bg-neutral-200 h-10 px-8 py-2 border border-transparent shadow shadow-white/20 w-full sm:w-auto"
             >
               [ Get Started ]
             </Link>
@@ -61,7 +61,7 @@ export default async function Home() {
               href="https://github.com/open-dev-society/kine-ui"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-sm text-xs font-mono uppercase tracking-widest font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-300 disabled:pointer-events-none disabled:opacity-50 border border-white/10 bg-transparent hover:bg-white/5 h-10 px-8 py-2 text-neutral-300"
+              className="inline-flex items-center justify-center rounded-sm text-xs font-mono uppercase tracking-widest font-bold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-300 disabled:pointer-events-none disabled:opacity-50 border border-white/10 bg-transparent hover:bg-white/5 h-10 px-8 py-2 text-neutral-300 w-full sm:w-auto"
             >
               <Github className="mr-3 h-4 w-4 text-neutral-500" />
               Source_Code
@@ -69,12 +69,12 @@ export default async function Home() {
           </div>
 
           {/* IDE-style Inline CLI */}
-          <div className="flex w-full items-center justify-center mt-6">
-            <div className="flex items-center justify-between border border-white/10 bg-[#050505] pl-4 pr-1.5 py-1.5 font-mono text-sm text-neutral-400 w-auto shadow-2xl relative overflow-hidden group">
+          <div className="flex w-full items-center justify-center mt-6 px-2 sm:px-0">
+            <div className="flex items-center justify-between border border-white/10 bg-[#050505] pl-4 pr-1.5 py-1.5 font-mono text-sm text-neutral-400 w-full sm:w-auto shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 left-0 w-[2px] h-full bg-emerald-500/50" />
-              <div className="flex items-center space-x-3 mr-8 text-neutral-300 min-w-[300px]">
-                <span className="text-emerald-500">{`$`}</span>
-                <span className="text-white text-[13px]">npx @opendevsociety/kine-ui@latest init</span>
+              <div className="flex items-center space-x-3 mr-4 sm:mr-8 text-neutral-300 min-w-0 overflow-hidden">
+                <span className="text-emerald-500 shrink-0">{`$`}</span>
+                <span className="text-white text-[12px] sm:text-[13px] truncate">npx @opendevsociety/kine-ui@latest init</span>
               </div>
               <CopyButton text="npx @opendevsociety/kine-ui@latest init" />
             </div>
@@ -322,10 +322,10 @@ export default async function Home() {
               </div>
 
               {/* CTA Content */}
-              <div className="flex flex-col items-center text-center px-6 py-16 md:py-20 space-y-8">
+              <div className="flex flex-col items-center text-center px-4 sm:px-6 py-12 md:py-20 space-y-6 sm:space-y-8">
                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-4xl font-mono tracking-widest uppercase text-white">Start Building</h2>
-                  <p className="text-neutral-500 text-sm font-mono max-w-[500px] leading-relaxed mx-auto">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-mono tracking-widest uppercase text-white">Start Building</h2>
+                  <p className="text-neutral-500 text-xs sm:text-sm font-mono max-w-[500px] leading-relaxed mx-auto">
                     {`> Two commands to go from zero to spatial computing. The init script scaffolds the engine, installs dependencies, and mounts the tracking core automatically.`}
                   </p>
                 </div>
@@ -336,7 +336,7 @@ export default async function Home() {
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/50" />
                     <span className="text-[10px] font-mono text-neutral-500 tracking-widest uppercase">terminal</span>
                   </div>
-                  <div className="p-4 font-mono text-sm text-neutral-300">
+                  <div className="p-4 font-mono text-xs sm:text-sm text-neutral-300 overflow-x-auto">
                     <span className="text-emerald-500 select-none mr-2">$</span>
                     npx @opendevsociety/kine-ui@latest init
                   </div>
@@ -346,10 +346,10 @@ export default async function Home() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center space-x-4 pt-2 w-full max-w-[500px]">
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 pt-2 w-full max-w-[500px]">
                   <Link
                     href="/docs/installation"
-                    className="flex-1 inline-flex items-center justify-center bg-white text-black hover:bg-neutral-200 h-12 px-8 py-2 font-mono text-xs uppercase tracking-widest font-bold transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+                    className="w-full sm:flex-1 inline-flex items-center justify-center bg-white text-black hover:bg-neutral-200 h-12 px-8 py-2 font-mono text-xs uppercase tracking-widest font-bold transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.15)]"
                   >
                     [ Read the Docs ]
                   </Link>
@@ -357,7 +357,7 @@ export default async function Home() {
                     href="https://github.com/open-dev-society/kine-ui"
                     target="_blank"
                     rel="noreferrer"
-                    className="flex-none inline-flex items-center justify-center border border-white/10 bg-transparent hover:bg-white/5 h-12 px-4 transition-colors text-neutral-400 hover:text-white"
+                    className="flex-none inline-flex items-center justify-center border border-white/10 bg-transparent hover:bg-white/5 h-12 px-4 w-full sm:w-auto transition-colors text-neutral-400 hover:text-white"
                     aria-label="GitHub Repository"
                   >
                     <Github className="h-4 w-4" />
@@ -366,7 +366,7 @@ export default async function Home() {
               </div>
 
               {/* Bottom Stats */}
-              <div className="flex items-center justify-between px-6 py-3 border-t border-white/5 bg-white/[0.01] text-[10px] font-mono text-neutral-700 tracking-widest uppercase">
+              <div className="flex flex-wrap items-center justify-center sm:justify-between gap-2 sm:gap-0 px-4 sm:px-6 py-3 border-t border-white/5 bg-white/[0.01] text-[10px] font-mono text-neutral-700 tracking-widest uppercase">
                 <span>Components: 4</span>
                 <span>Runtime: WebAssembly</span>
                 <span className="hidden sm:inline">Latency: &lt;16ms</span>
