@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/CodeBlock";
 import { Terminal, Lightbulb } from "lucide-react";
+
+export const metadata: Metadata = {
+    title: "Installation",
+    description: "Set up Kine UI in your Next.js project. Install the CLI, add the KineProvider, and start building gesture-driven interfaces in under 2 minutes.",
+};
 
 export default function InstallationPage() {
     return (

@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { CodeBlock } from "@/components/ui/CodeBlock";
+
+export const metadata: Metadata = {
+    title: "Architecture",
+    description: "How Kine UI works under the hood — the zero-server pipeline from webcam to MediaPipe WASM to hand landmarks to React components, all in under 16ms.",
+};
 
 export default function ArchitecturePage() {
     return (
