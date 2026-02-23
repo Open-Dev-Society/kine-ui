@@ -2,14 +2,23 @@
   <img src="./public/logo.png" alt="Kine UI Logo" width="90" height="90" />
   
   # Kine UI
-  ### Native Spatial Computing for the DOM
+  ### Standardizing hand-gesture interaction for React.
 
-  [![GitHub Stars](https://img.shields.io/github/stars/open-dev-society/kine-ui?style=for-the-badge&color=white&labelColor=black)](https://github.com/open-dev-society/kine-ui/stargazers)
-  [![License](https://img.shields.io/github/license/open-dev-society/kine-ui?style=for-the-badge&color=white&labelColor=black)](LICENSE)
-  [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-black?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
+<div>
+    <img src="https://img.shields.io/badge/-Next.js-black?style=for-the-badge&logoColor=white&logo=next.js&color=000000" alt="Next.js badge" />
+    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6"/>
+    <img src="https://img.shields.io/badge/-Tailwind%20CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=38B2AC"/>
+    <img src="https://img.shields.io/badge/-shadcn/ui-black?style=for-the-badge&logoColor=white&logo=shadcnui&color=000000"/>
+    <img src="https://img.shields.io/badge/-npm-black?style=for-the-badge&logoColor=white&logo=npm&color=000000"/>
+    <img src="https://img.shields.io/badge/-Vercel-black?style=for-the-badge&logoColor=white&logo=vercel&color=000000"/>
+    <img src="https://img.shields.io/badge/-mediapipe-black?style=for-the-badge&logoColor=white&logo=mediapipe&color=00A35C"/>
+    <img src="https://img.shields.io/badge/-Framer%20Motion-black?style=for-the-badge&logoColor=white&logo=framer&color=000000"/>
+    <img src="https://img.shields.io/badge/-Open%20Dev%20Society-black?style=for-the-badge&logoColor=white&color=38CFB8"/>
+  </div>
+ 
 
-  **Standardizing hand-gesture interaction for React.**  
+
+ 
   Kine UI provides high-performance, copy-pasteable spatial primitives powered by MediaPipe WebAssembly. 100% Client-Side. Zero Latency.
 </div>
 
@@ -81,7 +90,7 @@ We believe there’s a better way.
 
 ---
 
-## 🔋 Features
+## Features
 
 ### ☝️ Air Cursor (Pinch-to-Click)
 - Maps `landmarks[8]` (Index Finger Tip) to screen coordinates.
@@ -114,8 +123,13 @@ If you are adding Kine UI to an existing project:
 ```bash
 npx @opendevsociety/kine-ui@latest init
 ```
+### 2. Add KineProvider
 
-### 2. Add Your First Component
+```bash
+npx @opendevsociety/kine-ui@latest add kine-provider
+```
+
+### 3. Add Your First Component
 Choose a gesture from the registry and inject its source code:
 ```bash
 npx @opendevsociety/kine-ui@latest add air-cursor
@@ -209,7 +223,7 @@ Kine UI is and will remain free and open for everyone. This project is licensed 
 - **Framer Motion** for the buttery smooth spring physics.
 
 ### Our Honourable Contributors
-- **ravixalgorithm** - Lead developer of the engine and core registry.
+- **[ravixalgorithm](https://github.com/ravixalgorithm)** - Lead developer of the engine and core registry. 
 
 ---
 
