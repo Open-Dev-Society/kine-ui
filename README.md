@@ -1,122 +1,224 @@
-# Product Requirements Document: Kine UI
+<div align="center">
+  <img src="./public/logo.png" alt="Kine UI Logo" width="90" height="90" />
+  
+  # Kine UI
+  ### Native Spatial Computing for the DOM
 
-## Project Overview & Vision
-**Name**: Kine UI
+  [![GitHub Stars](https://img.shields.io/github/stars/open-dev-society/kine-ui?style=for-the-badge&color=white&labelColor=black)](https://github.com/open-dev-society/kine-ui/stargazers)
+  [![License](https://img.shields.io/github/license/open-dev-society/kine-ui?style=for-the-badge&color=white&labelColor=black)](LICENSE)
+  [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-black?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com)
 
-**Organization**: Open Dev Society
-
-**Concept**: A headless, copy-pasteable component registry for web-based hand gesture controls.
-
-**Objective**: Standardize computer vision for frontend developers. Kine UI provides raw, editable React components powered by a highly optimized background vision engine, utilizing the shadcn/ui distribution model (delivering source code, not compiled packages).
-
-## Target Audience & Use Cases
-- **Audience**: Frontend engineers, creative developers, and accessibility advocates.
-- **Use Cases**:
-  - Highly interactive motion graphics portfolios.
-  - Spatial computing interfaces for web apps.
-  - Accessible, touch-free navigation (e.g., swiping carousels, air-clicking).
-
-## Tech Stack & Dependencies
-- **Framework**: Next.js 15 (App Router)
-- **Language**: TypeScript (Strict mode)
-- **Styling**: Tailwind CSS v4
-- **Animation**: Framer Motion (crucial for smoothing webcam jitter via spring physics)
-- **Computer Vision**: @mediapipe/tasks-vision (WebAssembly, runs 100% locally)
-
-## Architectural Philosophy: The Split Codebase
-The repository must function as two distinct entities living within a single Next.js project to support CLI distribution:
-- The Registry (src/registry/ & public/r/): The isolated source code of the gesture components. Components here must not import anything from the docs site. During the build step, these files are compiled into individual JSON payloads (e.g., public/r/air-cursor.json).
-- The Documentation Site (src/app/): A standard Next.js website used exclusively to preview, test, and document the registry components.
-
-## Detailed Directory Structure
-```plaintext
-kine-ui/
-├── public/
-│   └── r/                             <-- Generated JSON payloads for the CLI
-│       ├── styles/
-│       │   └── index.json             <-- Master index of all Kine UI components
-│       └── air-cursor.json            <-- Example compiled component payload
-├── src/
-│   ├── app/                           <-- Documentation Site
-│   │   ├── layout.tsx
-│   │   ├── page.tsx                   <-- Landing page 
-│   │   └── docs/
-│   │       └── [component]/page.tsx   <-- Dynamic route for live webcam previews
-│   ├── registry/                      <-- Source Code for CLI Distribution
-│   │   ├── core/
-│   │   │   └── kine-engine.ts         <-- Singleton MediaPipe wrapper
-│   │   └── gestures/
-│   │       ├── KineProvider.tsx       <-- Global webcam wrapper & Context Provider
-│   │       ├── AirCursor.tsx          <-- Component: Index finger tracker
-│   │       └── SwipeArea.tsx          <-- Component: L/R hand velocity detector
-│   ├── components/                    <-- Site-specific UI (NOT for distribution)
-│   │   ├── ui/                        <-- Docs site buttons, navbars, etc.
-│   │   └── CodeBlock.tsx              <-- Syntax highlighter for raw registry code
-│   └── registry.json                  <-- CLI configuration manifest
-```
-
-### Component Schema & CLI Architecture
-
-To allow developers to install components via a command like npx shadcn add https://kineui.com/r/air-cursor.json, Kine UI uses the standard registry item schema.
-
-| Property | Type | Description |
-| name | String | The unique identifier (e.g., "air-cursor"). |
-| type | String | Defines the category (e.g., "registry:component"). |
-| dependencies | Array | Required npm packages (e.g., ["framer-motion", "@mediapipe/tasks-vision"]). |
-| files | Array | The raw file paths and content to be injected into the user's project. |
-
-## Core Modules & Specifications
-
-### Module A: The Kine Engine (src/registry/core/kine-engine.ts)
-**Purpose**: A singleton class managing @mediapipe/tasks-vision.
-**Requirements**:
-- Must request navigator.mediaDevices.getUserMedia with { video: { facingMode: "user" } }.
-- Outputs a continuous requestAnimationFrame loop containing the 21 3D hand landmarks.
-
-### Module B: The Global Provider (src/registry/gestures/KineProvider.tsx)
-**Purpose**: Ensures the webcam is only initialized once, regardless of how many gesture components are mounted.
-**Requirements**:
-- Uses React Context to broadcast landmarks (the coordinate array) and isWebcamActive (boolean) to all child components.
-- Includes an optional <DebugCanvas /> overlay to show the raw skeleton map during development.
-
-### Module C: Component - Air Cursor (src/registry/gestures/AirCursor.tsx)
-**Purpose**: Replaces the standard mouse cursor with the user's index finger.
-**Logic**:
-- Tracks landmarks[8] (Index Finger Tip).
-- Calculates the 3D Euclidean distance between the thumb (landmarks[4]) and index finger to detect a "pinch" for clicking.
-- **Math**: The distance $d$ is calculated as $d = \sqrt{(x_8 - x_4)^2 + (y_8 - y_4)^2 + (z_8 - z_4)^2}$. If $d < 0.04$, trigger a standard JavaScript MouseEvent('click').
-
-### Module D: Component - Swipe Area (src/registry/gestures/SwipeArea.tsx)
-**Purpose**: A wrapper div that listens for high-velocity horizontal movement.
-**Logic**:
-- Tracks the center palm (landmarks[0]).
-- Compares the X-coordinate delta over a 5-frame buffer.
-- If the velocity exceeds the defined threshold, fire onSwipeLeft or onSwipeRight.
-
-## Agent Execution Plan (Strict Order)
-
-### Phase 1: Foundation
-Scaffold the Next.js App Router project. Install Tailwind, Framer Motion, and MediaPipe. Create the exact folder structure above.
-
-### Phase 2: Vision Engine
-Write kine-engine.ts. Verify it successfully connects to the webcam and logs the 21 landmarks without blocking the main UI thread.
-
-### Phase 3: Context & Distribution
-Build KineProvider.tsx. Setup the registry.json manifest at the root to prepare for CLI compilation.
-
-### Phase 4: Component Logic
-Build AirCursor.tsx and implement the 3D distance math for the pinch-to-click functionality.
-
-### Phase 5: The Documentation
-Build a live demo page at app/docs/air-cursor/page.tsx that requests camera access and mounts the component over a test interface.
+  **Standardizing hand-gesture interaction for React.**  
+  Kine UI provides high-performance, copy-pasteable spatial primitives powered by MediaPipe WebAssembly. 100% Client-Side. Zero Latency.
+</div>
 
 ---
 
-## Phase 6: The `npx kine-ui` CLI
-To strengthen the brand and maintain full control over the Next.js developer experience, Kine UI distributes a specialized CLI package (`kine-ui`) instead of relying exclusively on community implementations like `shadcn`.
+> [!IMPORTANT]
+> **Project Banner © Open Dev Society.** This project is licensed under AGPL-3.0; if you modify, redistribute, or deploy it (including as a web service), you must release your source code under the same license and credit the original authors.
 
-The CLI will live alongside the source code in a monorepo setup, or as a distinct package `packages/cli` in the future.
+**Kine UI** is an open-source alternative to heavy, black-box computer vision libraries. Build spatial interfaces, track real-time gestures, and explore native spatial computing — built openly, for everyone, forever free.
 
-**Commands**:
-1. `npx kine-ui init`: Creates necessary directory structures (e.g., `@/components/kine` or `@/registry`) and writes foundational dependencies into the target project (`kine-provider`).
-2. `npx kine-ui add <component>`: Installs specific spatial components (e.g., `air-cursor`) by fetching the JSON payload generated by `build-registry.mjs` and writing it to the target user's disk.
+> [!NOTE]
+> Kine UI is community-built and utilizes `@mediapipe/tasks-vision` for client-side processing. Detection quality may vary based on lighting and hardware configuration. Nothing here is intended for critical safety systems.
+
+---
+
+## 📋 Table of Contents
+- [✨ Introduction](#-introduction)
+- [🌍 Open Dev Society Manifesto](#-open-dev-society-manifesto)
+- [⚙️ Tech Stack](#-tech-stack)
+- [🔋 Features](#-features)
+- [🤸 Quick Start](#-quick-start)
+- [🧱 Project Structure](#-project-structure)
+- [📡 Data & Integrations](#-data--integrations)
+- [🧪 Scripts & Tooling](#-scripts--tooling)
+- [🤝 Contributing](#-contributing)
+- [🛡️ Security](#-security)
+- [📜 License](#-license)
+- [🙏 Acknowledgements](#-acknowledgements)
+
+---
+
+## ✨ Introduction
+Kine UI is a modern spatial computing registry powered by **Next.js 15 (App Router)**, **shadcn/ui** distribution logic, **Tailwind CSS v4**, and **MediaPipe WebAssembly**. It delivers raw, editable React source code directly into your project via a dedicated CLI.
+
+---
+
+## � Open Dev Society Manifesto
+We live in a world where knowledge is hidden behind paywalls. Where tools are locked in subscriptions. Where information is twisted by bias. Where newcomers are told they’re not “good enough” to build.
+
+We believe there’s a better way.
+
+**Our Belief**: Technology should belong to everyone. Knowledge should be open, free, and accessible. Communities should welcome newcomers with trust, not gatekeeping.  
+**Our Mission**: Build free, open-source projects that make a real difference:
+- Tools that professionals and students can use without barriers.
+- Knowledge platforms where learning is free, forever.
+- Communities where every beginner is guided, not judged.
+- Resources that run on trust, not profit.  
+**Our Promise**: We will never lock knowledge. We will never charge for access. We will never trade trust for money. We run on transparency, donations, and the strength of our community.  
+**Our Call**: If you’ve ever felt you didn’t belong, struggled to find free resources, or wanted to build something meaningful — you belong here.  
+*Because the future belongs to those who build it openly.*
+
+---
+
+## ⚙️ Tech Stack
+### Core
+- **Next.js 15 (App Router)** & **React 19**
+- **TypeScript**
+- **Tailwind CSS v4** (via @tailwindcss/postcss)
+- **shadcn/ui** architecture for registry distribution
+- **Lucide React** for iconography
+
+### Spatial Engine
+- **@mediapipe/tasks-vision**: Ultra-fast hand tracking via WebAssembly
+- **Framer Motion**: Spring physics for jitter reduction and fluid UI updates
+
+### Tooling
+- **next-themes**: Dark mode as the primary visual state
+- **clsx** & **tailwind-merge**: Dynamic class management
+
+---
+
+## 🔋 Features
+
+### ☝️ Air Cursor (Pinch-to-Click)
+- Maps `landmarks[8]` (Index Finger Tip) to screen coordinates.
+- **Euclidean Detection**: $d = \sqrt{(x_i - x_t)^2 + (y_i - y_t)^2 + (z_i - z_t)^2}$
+- Dispatches native `click` events to DOM elements under the cursor.
+
+### ↔️ Swipe Area (Velocity Tracking)
+- Tracks palm center velocity over a 5-frame rolling buffer.
+- Triggers `onSwipeLeft` and `onSwipeRight` events for carousels and navigation.
+
+### ↕️ Air Scroll (Vertical Dynamics)
+- Maps hand Y-axis velocity to `window.scrollY`.
+- Hands-free page navigation with momentum-based scrolling.
+
+### 🤏 Pinch to Zoom (Spatial Scaling)
+- Intuitive scaling for images, maps, and 3D scenes.
+- Direct landmark distance mapping to `scale` transforms.
+
+---
+
+## 🤸 Quick Start
+
+### Prerequisites
+- **Node.js 20+**
+- A webcam with `{ video: { facingMode: "user" } }` support
+- A React-based project (Next.js 14+ recommended)
+
+### 1. Clone or Initialize
+If you are adding Kine UI to an existing project:
+```bash
+npx @opendevsociety/kine-ui@latest init
+```
+
+### 2. Add Your First Component
+Choose a gesture from the registry and inject its source code:
+```bash
+npx @opendevsociety/kine-ui@latest add air-cursor
+```
+
+### 3. Mount the Provider
+Wrap your application in the `KineProvider` to initialize the tracking engine singleton.
+```tsx
+import { KineProvider } from "@/components/kine/KineProvider";
+import { AirCursor } from "@/components/kine/AirCursor";
+
+export default function Root() {
+  return (
+    <KineProvider>
+      <AirCursor activeColor="#10b981" />
+      {/* Your App */}
+    </KineProvider>
+  )
+}
+```
+
+---
+
+## 🧱 Project Structure
+```plaintext
+kine-ui/
+├── packages/
+│   └── cli/                # The npx kine-ui CLI source code
+├── public/
+│   └── r/                  # Compiled registry JSON payloads
+├── src/
+│   ├── app/                # Documentation and Demo site
+│   │   ├── docs/           # Documentation pages
+│   │   └── api/            # API routes (stars, etc.)
+│   ├── components/
+│   │   └── ui/             # Site-specific UI components
+│   ├── registry/           # Hand-gesture source code (THE REGISTRY)
+│   │   ├── core/           # Wasm Engine (KineEngine)
+│   │   └── gestures/       # React Gesture Components
+│   └── registry.json       # Registry manifest for the CLI
+└── scripts/                # Build and registry compilation scripts
+```
+
+---
+
+## 📡 Data & Integrations
+
+### MediaPipe WebAssembly
+- The tracking engine runs in a dedicated WebWorker to prevent blocking the main UI thread.
+- Utilizes the `hand_landmarker.task` model for 21-point tracking.
+
+### Framer Motion
+- All movements are interpolated via spring physics to handle the naturally jittery webcam data.
+- Ensures a "solid" feel for the Air Cursor and UI elements.
+
+---
+
+## 🧪 Scripts & Tooling
+- `npm run dev`: Starts the documentation site and livedemo.
+- `npm run build`: Compiles the Next.js site and registry.
+- `npx kine-ui`: The primary distribution tool for spatial components.
+
+---
+
+## 🤝 Contributing
+You belong here. Whether you’re a student, a self-taught dev, or a seasoned engineer — contributions are welcome.
+
+- Open an issue to discuss ideas and bugs.
+- Look for “good first issue” or “help wanted”.
+- Keep PRs focused; add screenshots for UI changes.
+- **Be kind, guide beginners, no gatekeeping — that’s the ODS way.**
+
+---
+
+## 🛡️ Security
+If you discover a vulnerability:
+- Do not open a public issue.
+- Email: **opendevsociety@gmail.com**
+- We'll coordinate responsible disclosure and patch swiftly.
+
+---
+
+## 📜 License
+Kine UI is and will remain free and open for everyone. This project is licensed under the **AGPL-3.0 License** - see the LICENSE file for details.
+
+---
+
+## 🙏 Acknowledgements
+- **MediaPipe** for the incredible WebAssembly tracking engine.
+- **shadcn** for the innovative registry distribution model.
+- **Framer Motion** for the buttery smooth spring physics.
+
+### Our Honourable Contributors
+- **ravixalgorithm** - Lead developer of the engine and core registry.
+
+---
+
+<p align="center">
+  Built with ❤️ by the <b>Open Dev Society</b>
+</p>
+
+
+
+
+
+---
