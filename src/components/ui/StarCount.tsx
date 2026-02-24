@@ -10,15 +10,16 @@ interface StarCountProps {
 
 export function StarCount({ count, delay = 0 }: StarCountProps) {
     const [display, setDisplay] = useState(0);
-    const [visible, setVisible] = useState(false);
     const animated = useRef(false);
 
     useEffect(() => {
-        if (count === null || count === undefined || animated.current) return;
-        animated.current = true;
+        if (count === null || count === undefined || count === 0 || animated.current) {
+            if (count !== null && count !== undefined) setDisplay(count);
+            return;
+        }
 
+        animated.current = true;
         const timer = setTimeout(() => {
-            setVisible(true);
             const duration = 1500;
             const start = performance.now();
 
@@ -41,10 +42,10 @@ export function StarCount({ count, delay = 0 }: StarCountProps) {
         return () => clearTimeout(timer);
     }, [count, delay]);
 
-    if (count === null || count === undefined || !visible) return null;
+    if (count === null || count === undefined) return null;
 
     return (
-        <span className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-400 animate-[fadeIn_0.3s_ease-out]">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-neutral-400">
             <Star className="w-3 h-3 fill-yellow-500 text-yellow-500" />
             <span className="tabular-nums">{display}</span>
         </span>
